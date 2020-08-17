@@ -1,0 +1,79 @@
+body {
+  background-image: url(../images/blue-background-texture.jpg);
+
+}
+header {
+  background-color: rgba(240, 248, 255, 0.7);
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  margin: 20px;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+li {
+  display: inline-block;
+  margin: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+}
+
+main div:nth-child(1) {
+  background-color: rgba(240, 248, 255, 0.7);
+  margin-left: 20px;
+  height: 450px;
+}
+
+#table {
+  width: 340px;
+  margin-left: 20px;
+}
+
+h3 {
+  margin: 20px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+tr {
+  height: 20px;
+}
+
+td {
+  height: 20px;
+  width: 275px;
+  padding-left: 20px;
+}
+
+main div:nth-child(2) {
+  background-color: rgba(240, 248, 255, 0.7);
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 20px;
+  font-weight: bold;
+  font-size: 1.3em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+img {
+  width: 250px;
+  margin: 20px;
+}
+
+p {
+  margin: 20px;
+}
+

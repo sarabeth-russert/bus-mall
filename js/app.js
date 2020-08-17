@@ -29,7 +29,7 @@ productsArray.push(new Product('usb'));
 productsArray.push(new Product('water-can'));
 productsArray.push(new Product('wine-glass'));
 
-const tableParent = document.getElementById('table')
+const tableParent = document.getElementById('table');
 const parentElement = document.getElementById('product-display');
 let votes = 25;
 
