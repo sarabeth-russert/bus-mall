@@ -30,30 +30,54 @@ productsArray.push(new Product('water-can'));
 productsArray.push(new Product('wine-glass'));
 
 const tableParent = document.getElementById('table');
+const submission = document.getElementById('submission');
 const parentElement = document.getElementById('product-display');
 let votes = 25;
+let uniqueImageArray = [];
 
-function randomIndexNumber(max) {
+function generateRandomIndexNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function renderRandomImage() {
-  let randomImage = productsArray[randomIndexNumber(productsArray.length)];
-  randomImage.displayCount++;
+function generateUniqueRandomImage() {
+  let randomIndexNumber = generateRandomIndexNumber(productsArray.length);
 
-  let imageElement = document.createElement('img');
-  imageElement.setAttribute('src', randomImage.filePath);
-  imageElement.setAttribute('alt', randomImage.name);
-  imageElement.setAttribute('title', randomImage.name);
-  let input = document.createElement('input');
-  input.setAttribute('type', 'radio');
-  input.setAttribute('name', 'image');
-  input.setAttribute('value', randomImage.name);
-  parentElement.appendChild(imageElement);
-  parentElement.appendChild(input);
+  while (uniqueImageArray.includes(randomIndexNumber)) {
+    randomIndexNumber = generateRandomIndexNumber(productsArray.length);
+  }
 
+  uniqueImageArray.push(randomIndexNumber);
+
+  while (uniqueImageArray.length > 6) {
+    uniqueImageArray.shift();
+  }
+
+  productsArray[randomIndexNumber].displayCount++;
+  return (productsArray[randomIndexNumber]);
 }
 
+
+function renderSingleImageElements() {
+  let randomImageObject = generateUniqueRandomImage();
+  let imageElement = document.createElement('img');
+  imageElement.setAttribute('src', randomImageObject.filePath);
+  imageElement.setAttribute('alt', randomImageObject.name);
+  imageElement.setAttribute('title', randomImageObject.name);
+  let input = document.createElement('input');
+  input.setAttribute('type', 'radio');
+  input.setAttribute('class', 'productChoice');
+  input.setAttribute('name', 'productChoice');
+  input.setAttribute('value', randomImageObject.name);
+  input.setAttribute('checked', 'checked');
+  parentElement.appendChild(imageElement);
+  parentElement.appendChild(input);
+}
+
+function renderThreeNewImages() {
+  renderSingleImageElements();
+  renderSingleImageElements();
+  renderSingleImageElements();
+}
 
 function renderEmptyTable() {
   for (let i = 0; i < productsArray.length; i++) {
@@ -74,37 +98,123 @@ function renderTotalsTable() {
   }
 }
 
-parentElement.addEventListener('click', handleClick);
+submission.addEventListener('submit', handleSubmit);
 
-function handleClick(event) {
-  let clickedProduct = event.target.alt;
+function handleSubmit(event) {
+  event.preventDefault();
+  let choices = document.getElementsByClassName('productChoice');
+  for (let i = 0; i < choices.length; i++) {
+    if (choices[i].checked) {
+      var chosenProduct = choices[i].value;
+    }
+  }
 
   for (let i = 0; i < productsArray.length; i++) {
-    if (productsArray[i].name === clickedProduct) {
+    if (productsArray[i].name === chosenProduct) {
       productsArray[i].clicks++;
     }
   }
   parentElement.innerHTML = '';
-  renderRandomImage();
-  renderRandomImage();
-  renderRandomImage();
+  renderThreeNewImages();
   votes--;
-  console.log(votes);
   if (votes === 0) {
-    parentElement.removeEventListener('click', handleClick);
+    submission.removeEventListener('submit', handleSubmit);
+    submission.innerHTML = '';
     tableParent.innerHTML = '';
     renderTotalsTable();
+    findPercentageData();
+    createObjClicksDataArray();
+    createObjViewsDataArray();
+    renderChart(findPercentageData(), 'percentage of votes', percentageChart, 'pie');
+    renderChart(createObjClicksDataArray(), 'number of votes', clicksChart, 'bar');
+    renderChart(createObjViewsDataArray(), 'number of views', viewsChart, 'bar');
   }
 }
 
 renderEmptyTable();
-renderRandomImage();
-renderRandomImage();
-renderRandomImage();
+renderThreeNewImages();
+
+function findPercentageData(){
+  let percentageDataArray = [];
+
+  for (let i = 0; i < productsArray.length; i++) {
+    if (parseInt(productsArray[i].clicks) === 0 || parseInt(productsArray[i].displayCount) === 0 ) {
+      percentageDataArray.push(0);
+    } else {
+      percentageDataArray.push(parseInt(productsArray[i].clicks) / parseInt(productsArray[i].displayCount) * 100);
+    }
+  }
+  console.log(percentageDataArray);
+}
+
+function createLabelsArray() {
+  let labelsArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    labelsArray.push(productsArray[i].name);
+  }
+  return labelsArray;
+}
+
+function createObjClicksDataArray() {
+  let objClicksDataArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    objClicksDataArray.push(productsArray[i].clicks);
+  }
+  return objClicksDataArray;
+}
+
+function createObjViewsDataArray() {
+  let objViewsDataArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    objViewsDataArray.push(productsArray[i].displayCount);
+  }
+  return objViewsDataArray;
+}
 
 
+var clicksChart = document.getElementsById('clicksChart').getContext('2d');
 
+var viewsChart = document.getElementsById('viewsChart').getContext('2d');
 
+var percentageChart = document.getElementsById('percentageChart').getContext('2d');
 
+function renderChart(data, dataLabel, chartName, type) {
 
+  new Chart(chartName, {
+    type: type,
+    data: {
+      labels: createLabelsArray(),
+      datasets: [{
+        label: dataLabel,
+        data: data,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
