@@ -45,7 +45,13 @@ function renderRandomImage() {
   imageElement.setAttribute('src', randomImage.filePath);
   imageElement.setAttribute('alt', randomImage.name);
   imageElement.setAttribute('title', randomImage.name);
+  let input = document.createElement('input');
+  input.setAttribute('type', 'radio');
+  input.setAttribute('name', 'image');
+  input.setAttribute('value', randomImage.name);
   parentElement.appendChild(imageElement);
+  parentElement.appendChild(input);
+
 }
 
 
