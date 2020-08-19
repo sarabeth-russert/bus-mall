@@ -98,6 +98,256 @@ function renderTotalsTable() {
   }
 }
 
+function createLabelsArray() {
+  let labelsArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    labelsArray.push(productsArray[i].name);
+  }
+  return labelsArray;
+}
+
+function createPercentageDataArray(){
+  let percentageDataArray = [];
+
+  for (let i = 0; i < productsArray.length; i++) {
+    if (parseInt(productsArray[i].clicks) === 0 || parseInt(productsArray[i].displayCount) === 0 ) {
+      percentageDataArray.push(0);
+    } else {
+      percentageDataArray.push(parseInt(productsArray[i].clicks) / parseInt(productsArray[i].displayCount) * 100);
+    }
+  }
+  return percentageDataArray;
+}
+
+function createObjClicksDataArray() {
+  let objClicksDataArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    objClicksDataArray.push(productsArray[i].clicks);
+  }
+  return objClicksDataArray;
+}
+
+function createObjViewsDataArray() {
+  let objViewsDataArray = [];
+  for (let i = 0; i < productsArray.length; i++) {
+    objViewsDataArray.push(productsArray[i].displayCount);
+  }
+  return objViewsDataArray;
+}
+
+function renderClicksChart() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var clicksChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: createLabelsArray(),
+      datasets: [{
+        label: '# of Votes',
+        data: createObjClicksDataArray(),
+        backgroundColor: [
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+function renderViewsChart() {
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+  var viewsChart = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: createLabelsArray(),
+      datasets: [{
+        label: '# of Views',
+        data: createObjViewsDataArray(),
+        backgroundColor: [
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 206, 86, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 206, 86, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+function renderPercentageChart() {
+  var ctx3 = document.getElementById('myChart3').getContext('2d');
+  var percentageChart = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: createLabelsArray(),
+      datasets: [{
+        label: '% of times voted for',
+        data: createPercentageDataArray(),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+function youreWelcome(){
+  let votingGreeterContainer = document.getElementById('thank-you-container');
+  let votingGreeter = document.getElementById('thank-you');
+  votingGreeter.innerHTML = '';
+  let headerElement = document.createElement('h2');
+  headerElement.textContent = 'Thank you for voting!';
+  votingGreeterContainer.appendChild(headerElement);
+}
+
 submission.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
@@ -121,100 +371,15 @@ function handleSubmit(event) {
     submission.removeEventListener('submit', handleSubmit);
     submission.innerHTML = '';
     tableParent.innerHTML = '';
+    youreWelcome();
     renderTotalsTable();
-    findPercentageData();
-    createObjClicksDataArray();
-    createObjViewsDataArray();
-    renderChart(findPercentageData(), 'percentage of votes', percentageChart, 'pie');
-    renderChart(createObjClicksDataArray(), 'number of votes', clicksChart, 'bar');
-    renderChart(createObjViewsDataArray(), 'number of views', viewsChart, 'bar');
+    renderClicksChart();
+    renderViewsChart();
+    createPercentageDataArray();
+    renderPercentageChart();
+
   }
 }
 
 renderEmptyTable();
 renderThreeNewImages();
-
-function findPercentageData(){
-  let percentageDataArray = [];
-
-  for (let i = 0; i < productsArray.length; i++) {
-    if (parseInt(productsArray[i].clicks) === 0 || parseInt(productsArray[i].displayCount) === 0 ) {
-      percentageDataArray.push(0);
-    } else {
-      percentageDataArray.push(parseInt(productsArray[i].clicks) / parseInt(productsArray[i].displayCount) * 100);
-    }
-  }
-  console.log(percentageDataArray);
-}
-
-function createLabelsArray() {
-  let labelsArray = [];
-  for (let i = 0; i < productsArray.length; i++) {
-    labelsArray.push(productsArray[i].name);
-  }
-  return labelsArray;
-}
-
-function createObjClicksDataArray() {
-  let objClicksDataArray = [];
-  for (let i = 0; i < productsArray.length; i++) {
-    objClicksDataArray.push(productsArray[i].clicks);
-  }
-  return objClicksDataArray;
-}
-
-function createObjViewsDataArray() {
-  let objViewsDataArray = [];
-  for (let i = 0; i < productsArray.length; i++) {
-    objViewsDataArray.push(productsArray[i].displayCount);
-  }
-  return objViewsDataArray;
-}
-
-
-var clicksChart = document.getElementsById('clicksChart').getContext('2d');
-
-var viewsChart = document.getElementsById('viewsChart').getContext('2d');
-
-var percentageChart = document.getElementsById('percentageChart').getContext('2d');
-
-function renderChart(data, dataLabel, chartName, type) {
-
-  new Chart(chartName, {
-    type: type,
-    data: {
-      labels: createLabelsArray(),
-      datasets: [{
-        label: dataLabel,
-        data: data,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-}
-
