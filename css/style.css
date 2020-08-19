@@ -73,7 +73,38 @@ img {
   margin: 20px;
 }
 
+button {
+  width: 400px;
+  height: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1em;
+}
+
+#button-section {
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 p {
   margin: 20px;
+  line-height: 1.5;
 }
+
+
+footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgba(240, 248, 255, 0.7);
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+footer div {
+  width: 400px;
+  height: 400px;
+}
+
+
 
