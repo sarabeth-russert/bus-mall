@@ -1,7 +1,7 @@
 'use strict';
 
 function Product(name) {
-  this.filePath = `../img/${name}.jpg`;
+  this.filePath = `./img/${name}.jpg`;
   this.name = name;
   this.clicks = 0;
   this.displayCount = 0;
