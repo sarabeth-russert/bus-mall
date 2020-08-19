@@ -1,4 +1,26 @@
 'use strict';
+let productsArray;
+const tableParent = document.getElementById('table');
+const submission = document.getElementById('submission');
+const parentElement = document.getElementById('product-display');
+let votes = 25;
+let uniqueImageArray = [];
+
+function checkLocalStorageToFillArray() {
+  if (localStorage.getItem('products') === null) {
+    productsArray = [];
+    instantiateNewProductObjects();
+  }
+  else {
+    let getProducts = localStorage.getItem('products');
+    productsArray = JSON.parse(getProducts);
+  }
+}
+
+function storeLocalData() {
+  let stringifyObjects = JSON.stringify(productsArray);
+  localStorage.setItem('products', stringifyObjects);
+}
 
 function Product(name) {
   this.filePath = `../img/${name}.jpg`;
@@ -7,33 +29,27 @@ function Product(name) {
   this.displayCount = 0;
 }
 
-let productsArray = [];
-
-productsArray.push(new Product('bag'));
-productsArray.push(new Product('banana'));
-productsArray.push(new Product('bathroom'));
-productsArray.push(new Product('boots'));
-productsArray.push(new Product('breakfast'));
-productsArray.push(new Product('bubblegum'));
-productsArray.push(new Product('chair'));
-productsArray.push(new Product('cthulhu'));
-productsArray.push(new Product('dog-duck'));
-productsArray.push(new Product('dragon'));
-productsArray.push(new Product('pen'));
-productsArray.push(new Product('pet-sweep'));
-productsArray.push(new Product('scissors'));
-productsArray.push(new Product('shark'));
-productsArray.push(new Product('tauntaun'));
-productsArray.push(new Product('unicorn'));
-productsArray.push(new Product('usb'));
-productsArray.push(new Product('water-can'));
-productsArray.push(new Product('wine-glass'));
-
-const tableParent = document.getElementById('table');
-const submission = document.getElementById('submission');
-const parentElement = document.getElementById('product-display');
-let votes = 25;
-let uniqueImageArray = [];
+function instantiateNewProductObjects() {
+  productsArray.push(new Product('bag'));
+  productsArray.push(new Product('banana'));
+  productsArray.push(new Product('bathroom'));
+  productsArray.push(new Product('boots'));
+  productsArray.push(new Product('breakfast'));
+  productsArray.push(new Product('bubblegum'));
+  productsArray.push(new Product('chair'));
+  productsArray.push(new Product('cthulhu'));
+  productsArray.push(new Product('dog-duck'));
+  productsArray.push(new Product('dragon'));
+  productsArray.push(new Product('pen'));
+  productsArray.push(new Product('pet-sweep'));
+  productsArray.push(new Product('scissors'));
+  productsArray.push(new Product('shark'));
+  productsArray.push(new Product('tauntaun'));
+  productsArray.push(new Product('unicorn'));
+  productsArray.push(new Product('usb'));
+  productsArray.push(new Product('water-can'));
+  productsArray.push(new Product('wine-glass'));
+}
 
 function generateRandomIndexNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -368,6 +384,7 @@ function handleSubmit(event) {
   renderThreeNewImages();
   votes--;
   if (votes === 0) {
+    storeLocalData();
     submission.removeEventListener('submit', handleSubmit);
     submission.innerHTML = '';
     tableParent.innerHTML = '';
@@ -381,5 +398,6 @@ function handleSubmit(event) {
   }
 }
 
+checkLocalStorageToFillArray();
 renderEmptyTable();
 renderThreeNewImages();
