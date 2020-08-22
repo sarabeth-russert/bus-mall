@@ -1,0 +1,97 @@
+
+body header {
+  background-color: rgba(240, 248, 255, 0.7);
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body header h1 {
+  margin: 20px;
+  font-weight: bolder;
+  font-size: 1.5em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+nav li {
+  display: inline-block;
+  padding: 20px;
+
+}
+
+main {
+  margin: 20px;
+}
+
+body {
+  background-image: url(../img/blue-background-texture.jpg);
+
+}
+
+.card {
+  background-color: rgba(240, 248, 255, 0.7);
+  padding: 20px;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+div ol li {
+  font-size: 1.2em;
+}
+
+legend {
+  font-size: 1.5em;
+}
+
+label {
+  font-size: 1.2em;
+}
+
+#cartContents {
+  border: 1px dotted #28231C;
+  margin-top: 20px;
+  width: 50%;
+}
+
+#itemCount {
+  padding: 10px;
+  padding-top: 15px;
+  font-size: 1.5em;
+}
+
+th {
+  padding: 3px;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.copy ol li {
+  font-size: 1em;
+}
+
+th:nth-child(1) {
+  color: red
+
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.deck col-1{
+  font-size: 1.5em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2em
+}
+
+main header {
+  font-size: .75em
+}
