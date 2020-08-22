@@ -4,6 +4,7 @@
 Bus Mall project for Code Fellows 201
 
 ### Author: Sara Russert
+### Shoping Cart and Store by: Lee Thomas and Sara Russert
 
 ### Links and Resources
 * to remove an event listener https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/
