@@ -1,10 +1,15 @@
 'use strict';
+
+// global variables
+
 let productsArray;
 const tableParent = document.getElementById('table');
 const submission = document.getElementById('submission');
 const parentElement = document.getElementById('product-display');
 let votes = 25;
 let uniqueImageArray = [];
+
+//checking for local data to populate the product array, if not calling to instantiate new product objects
 
 function checkLocalStorageToFillArray() {
   if (localStorage.getItem('products') === null) {
@@ -17,10 +22,14 @@ function checkLocalStorageToFillArray() {
   }
 }
 
+// stores all object data aquired
+
 function storeLocalData() {
   let stringifyObjects = JSON.stringify(productsArray);
   localStorage.setItem('products', stringifyObjects);
 }
+
+// object constructor
 
 function Product(name) {
   this.filePath = `../img/${name}.jpg`;
@@ -28,6 +37,8 @@ function Product(name) {
   this.clicks = 0;
   this.displayCount = 0;
 }
+
+// instantiates all products and pushes them to product array
 
 function instantiateNewProductObjects() {
   productsArray.push(new Product('bag'));
@@ -55,6 +66,8 @@ function generateRandomIndexNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+// takes the result of the random number generator and gets a product from the Products array. Checks to see if there is already a product in the unique image array matching that index number.
+
 function generateUniqueRandomImage() {
   let randomIndexNumber = generateRandomIndexNumber(productsArray.length);
 
@@ -72,6 +85,7 @@ function generateUniqueRandomImage() {
   return (productsArray[randomIndexNumber]);
 }
 
+// the process for rendering a single image with radio button
 
 function renderSingleImageElements() {
   let randomImageObject = generateUniqueRandomImage();
@@ -89,11 +103,15 @@ function renderSingleImageElements() {
   parentElement.appendChild(input);
 }
 
+// three- could easily be altered if we needed to add more
+
 function renderThreeNewImages() {
   renderSingleImageElements();
   renderSingleImageElements();
   renderSingleImageElements();
 }
+
+// creates an empty table to display with just the product names before the votes are tallied
 
 function renderEmptyTable() {
   for (let i = 0; i < productsArray.length; i++) {
@@ -102,6 +120,8 @@ function renderEmptyTable() {
     tableParent.appendChild(tableRow);
   }
 }
+
+// fills that table with the voting results
 
 function renderTotalsTable() {
   for (let i = 0; i < productsArray.length; i++) {
@@ -114,6 +134,8 @@ function renderTotalsTable() {
   }
 }
 
+// creates an array from the product names to use in all the charts as labels
+
 function createLabelsArray() {
   let labelsArray = [];
   for (let i = 0; i < productsArray.length; i++) {
@@ -121,6 +143,8 @@ function createLabelsArray() {
   }
   return labelsArray;
 }
+
+// finds the percentage of votes to times displayed per product for the percentage chart. Is called after the voting is completed
 
 function createPercentageDataArray(){
   let percentageDataArray = [];
@@ -135,6 +159,8 @@ function createPercentageDataArray(){
   return percentageDataArray;
 }
 
+// creates a data array for clicks per product for the click chart
+
 function createObjClicksDataArray() {
   let objClicksDataArray = [];
   for (let i = 0; i < productsArray.length; i++) {
@@ -143,6 +169,8 @@ function createObjClicksDataArray() {
   return objClicksDataArray;
 }
 
+// creates a data array for views per product for the products chart
+
 function createObjViewsDataArray() {
   let objViewsDataArray = [];
   for (let i = 0; i < productsArray.length; i++) {
@@ -150,6 +178,8 @@ function createObjViewsDataArray() {
   }
   return objViewsDataArray;
 }
+
+// chart for clicks per item
 
 function renderClicksChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -219,6 +249,7 @@ function renderClicksChart() {
   });
 }
 
+// chart for views per item
 function renderViewsChart() {
   var ctx2 = document.getElementById('myChart2').getContext('2d');
   var viewsChart = new Chart(ctx2, {
@@ -286,6 +317,8 @@ function renderViewsChart() {
     }
   });
 }
+
+// chart for percentage of clicks for the times displayed
 
 function renderPercentageChart() {
   var ctx3 = document.getElementById('myChart3').getContext('2d');
@@ -355,6 +388,8 @@ function renderPercentageChart() {
   });
 }
 
+// changes the greeting header in the voting pane once voting has been completed
+
 function youreWelcome(){
   let votingGreeterContainer = document.getElementById('thank-you-container');
   let votingGreeter = document.getElementById('thank-you');
@@ -364,7 +399,11 @@ function youreWelcome(){
   votingGreeterContainer.appendChild(headerElement);
 }
 
+// attaches a listener to the submit button
+
 submission.addEventListener('submit', handleSubmit);
+
+// submit handler function: increments product clicks if the item was selected. Clears out the voting pane and adds three new images to be voted on. Once the voting session is complete clears out the voting pane and changes the greeter. Renders the data table and charts and turns off the event listener. Stores local data.
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -397,6 +436,8 @@ function handleSubmit(event) {
 
   }
 }
+
+// Initalizes the page upon loading
 
 checkLocalStorageToFillArray();
 renderEmptyTable();

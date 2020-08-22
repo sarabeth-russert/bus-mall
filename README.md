@@ -11,4 +11,4 @@ Bus Mall project for Code Fellows 201
 * chart info and script https://www.chartjs.org/docs/latest/
 
 ### Reflections and Comments
-* 
+* fun project! The problem domain was creating a data accumulating market research survey for a selection of products to determine the top candidates to be featured in a catalogue for bus riders. It features a form with a listener and a table and charts that generate upon completing 25 rounds of voting. It stores local data to accumulate voting totals over as many rounds of voting as needed.
